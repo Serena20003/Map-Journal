@@ -1,17 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// const firebaseConfig = {
-// apiKey: "AIzaSyCO9hxledBZ9bXK5UH7ivLfctd-2-0ypVI",
-// authDomain: "map-journal-e987a.firebaseapp.com",
-// projectId: "map-journal-e987a",
-// storageBucket: "map-journal-e987a.firebasestorage.app",
-// messagingSenderId: "775937816124",
-// appId: "1:775937816124:web:3e0dcecca746e13ac5f539"
-// };
 
 const firebaseConfig = {
 apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -25,6 +15,14 @@ appId: process.env.REACT_APP_FIREBASE_APP_ID
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
-const authIns = getAuth(app);
+export const authIns = getAuth(app);
+
+export const checkAuthState = (callback) => {
+    onAuthStateChanged(authIns, (user) => {
+        callback(user);
+    })
+}
+
+console.log(`firebaseConfig called: authIns.currentUser = ${authIns.currentUser}`);
 
 export default authIns;

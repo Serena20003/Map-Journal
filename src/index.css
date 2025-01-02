@@ -1,1 +1,27 @@
+.content {
+    height: 100vh;
+}
 
+.flexbox {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.subflexbox {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 3;
+    padding-left: 10px;
+}
+
+.map {
+    display: flex;
+    align-items: stretch;
+    height: 100%; 
+    width: 100%;
+}
+
+body {
+    margin: 0px;
+}

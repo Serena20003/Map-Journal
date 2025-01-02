@@ -1,9 +1,10 @@
-import authIns from "./Utils/firebaseConfig";
+import { useAuth } from "../Utils/authContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import Input from "./Components/Input";
+import Input from "../Components/Input";
 import { useState } from "react";
-import Button from "./Components/Button";
+import Button from "../Components/Button";
 import { useNavigate } from "react-router-dom";
+import authIns from "../Utils/firebaseConfig";
 
 const Login = () => {
     const [email, setEmail] = useState("");
