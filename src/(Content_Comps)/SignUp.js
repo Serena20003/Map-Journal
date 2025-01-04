@@ -1,4 +1,4 @@
-import authIns from "../Utils/firebaseConfig";
+import { authIns }  from "../Utils/firebaseConfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import Input from "../Components/Input";
 import { useState } from "react";

@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
@@ -23,6 +24,5 @@ export const checkAuthState = (callback) => {
     })
 }
 
-console.log(`firebaseConfig called: authIns.currentUser = ${authIns.currentUser}`);
+export const dbIns = getFirestore(app);
 
-export default authIns;

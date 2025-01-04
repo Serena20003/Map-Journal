@@ -1,5 +1,5 @@
 import { useState } from "react";
-import authIns from "./firebaseConfig";
+import { authIns } from "./firebaseConfig";
 import { validatePassword } from "firebase/auth";
 
 const useAuthValidation = () => {

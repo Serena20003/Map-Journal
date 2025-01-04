@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../Components/Button";
-import { useAuth } from "../Utils/authContext";
+import { useAuth } from "../Utils/AuthContext";
 import { signOut } from "firebase/auth";
-import authIns from "../Utils/firebaseConfig";
+import { authIns }  from "../Utils/firebaseConfig";
 
 
 const Home = () => {
