@@ -6,27 +6,29 @@ import { getDocs, collection, addDoc, GeoPoint, Timestamp, query, where} from "f
 import { LatLng } from 'leaflet';
 import { useEffect, useState } from 'react';
 import { useMode } from '../Utils/ModeContext';
+import { useLocation } from 'react-router-dom';
+import Button from '../Components/Button';
+import { useNavigate } from 'react-router-dom';
 
-function LocationMarker({currentUser=null}) {
+function LocationMarker({currentUser=null, mapID="null"}) {
   const [positions, setPositions] = useState([]);
   const { mode, setMode } = useMode();
-  const mapID = "map ID 1";
   const [dataType, setDataType] = useState("Geo Data")
   const collRef = collection(dbIns, currentUser.uid, mapID, dataType);
   const map = useMapEvents({
     // do point only first
     async click(ev) {
-      if (mode === "Point") {
+      if (mode === "pointEdit") {
         const { lat, lng } = ev.latlng;
-        const docRef = await addDoc(collRef, {
-          "Connect_to": null,
-          "Coord": new GeoPoint(lat, lng),
-          "Date": Timestamp.fromDate(new Date()),
-          "Name": "test point",
-          "Type": mode
-        }).then(() => {
-          q();
-        })
+        // const docRef = await addDoc(collRef, {
+        //   "Connect_to": null,
+        //   "Coord": new GeoPoint(lat, lng),
+        //   "Date": Timestamp.fromDate(new Date()),
+        //   "Name": "test point",
+        //   "Type": mode
+        // }).then(() => {
+        //   q();
+        // })
       }
     }
   })
@@ -36,11 +38,12 @@ function LocationMarker({currentUser=null}) {
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       newPos.push(new LatLng(doc.data().Coord.latitude, doc.data().Coord.longitude));
-    }); 
+    });
     setPositions(newPos);
   }
 
   useEffect(() => {
+    setMode("mapView");
     q();
   }, []);
   return positions.length === 0 ? (<></>) : (
@@ -57,13 +60,17 @@ function LocationMarker({currentUser=null}) {
     )
   }
 
-const Map = () => {
+const Map = ({geoPoint, setGeoPoint}) => {
+  const navigate = useNavigate();
     const { currentUser } = useAuth();
+    const mapData = useLocation();
+    const {mapID} = mapData.state;
+    // const mapID = "map ID 1";
     return ( 
       <>
       {currentUser &&  
         <>
-          <MapContainer className="map" center={[51.505, -0.09]} zoom={13}>
+          <MapContainer className="map" center={[51.505, -0.09]} zoom={1}>
             <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="Map data © OpenStreetMap contributors"
@@ -71,7 +78,7 @@ const Map = () => {
             {/* <Marker position={[51.5, -0.09]}>
                 <Popup>A pretty popup.</Popup>
             </Marker> */}
-            <LocationMarker currentUser={currentUser} />
+            <LocationMarker mapID={mapID} currentUser={currentUser} />
         </MapContainer>
         </>
       }
@@ -81,17 +88,3 @@ const Map = () => {
 }
  
 export default Map;
-
-
-// const geoJson = {
-//     "type": "Feature",
-//     "properties": {
-//         "name": "Coors Field",
-//         "amenity": "Baseball Stadium",
-//         "popupContent": "This is where the Rockies play!"
-//     },
-//     "geometry": {
-//         "type": "Point",
-//         "coordinates": [-104.99404, 39.75621]
-//     }
-// }

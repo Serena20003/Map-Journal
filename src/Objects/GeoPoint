@@ -1,0 +1,28 @@
+class GeoPoint {
+    constructor (connect_from, coord, date, name, type) {
+        this.connect_from = connect_from;
+        this.coord = coord;
+        this.date = date;
+        this.name = name;
+        this.type = type;
+    }
+    toString() {
+        return `${this.name} is a geo ${this.type}; on date: ${this.date}; at LatLng ${this.coord}, connected from ${this.connect_from}`;
+    }
+}
+
+const geoPointConverter = {
+    toFirestore: (point) => {
+        return {
+            connect_from: point.connect_from,
+            coord: point.coord,
+            date: point.date,
+            name: point.name,
+            type: point.type
+        };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new GeoPoint(data.connect_from, data.coord, data.date, data.name, data.type);
+    }
+}

@@ -7,30 +7,30 @@ import Home from "./(Content_Comps)/Home";
 import NotFound from "./(Content_Comps)/NotFound";
 import Dashboard from "./(Content_Comps)/Dashboard";
 import Map from "./(Content_Comps)/Map";
+import Gallery from "./(Content_Comps)/Gallery";
 import { createContext, useState, useContext } from "react";
 
 
 function App() {
 
-  const AppStateContext = createContext();
-  const [addPoint, setAddPoint] = useState(false);
-  const [addLine, setAddLine] = useState(false);
+  const [mapName, setMapName] = useState("");
+  const [geoPoint, setGeoPoint] = useState(null);
 
   return (
     <Router>
-      
       <div className="App">
         <div className="flexbox">
-          <SideBar />
+        <NavBar />
           <div className="subflexbox">
-            <NavBar />
+            <SideBar mapName={mapName} setMapName={setMapName} geoPoint={geoPoint} setGeoPoint={setGeoPoint} />
             <div className="content">
               <Routes>
                 <Route exact path="/" element={<Home />}/>
                 <Route exact path="/login" element={<Login />}/>
                 <Route exact path="/signUp" element={<SignUp />}/>
                 <Route exact path="/dashboard" element={<Dashboard />}/>
-                <Route exact path="/map" element={<Map />}/>
+                <Route exact path="/gallery" element={<Gallery setMapName={setMapName} />}/>
+                <Route path="/map" element={<Map geoPoint={geoPoint} setGeoPoint={setGeoPoint}/>}/>
                 <Route path="*" element={<NotFound />}/>
               </Routes>
             </div>

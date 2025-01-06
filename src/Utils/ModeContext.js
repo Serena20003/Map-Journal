@@ -1,9 +1,20 @@
+/*
+Modes:
+mapView
+pointEdit
+pointView
+journalEdit
+journalView
+dashboard
+gallery
+hide
+*/
 import React, { createContext, useContext, useState } from 'react';
 
 const ModeContext = createContext();
 
 export const ModeProvider = ({ children }) => {
-  const [mode, setMode] = useState('View');
+  const [mode, setMode] = useState('hide');
 
   return (
     <ModeContext.Provider value={{ mode, setMode }}>

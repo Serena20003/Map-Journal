@@ -1,18 +1,28 @@
 .content {
-    height: 100vh;
+    display: flex;
+    width: 100vw;
+    padding-left: 10px;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width:fit-content;
 }
 
 .flexbox {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     height: 100vh;
 }
 
 .subflexbox {
     display: flex;
-    flex-direction: column;
     flex-grow: 3;
     padding-left: 10px;
+    padding-top: 10px;
 }
 
 .map {
